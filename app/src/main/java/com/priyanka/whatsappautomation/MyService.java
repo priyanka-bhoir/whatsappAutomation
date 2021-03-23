@@ -28,11 +28,11 @@ public class MyService extends AccessibilityService {
     final int chatTimeLapseInMs=5000;
     final int stdTimeLApse = 600;
 
-    public MyService() {
+    public MyService(){
     }
 
     @Override
-    public void onAccessibilityEvent(AccessibilityEvent event) {
+    public void onAccessibilityEvent(AccessibilityEvent event){
         if (event==null){
             return;
         }
@@ -49,13 +49,15 @@ public class MyService extends AccessibilityService {
             if (!name.equalsIgnoreCase(targetName)){
                 Log.e(TAG, "onAccessibilityEvent: no target name" );
                 return;
-            }else {
+            }
+            else{
                 AccessibilityNodeInfo textBox = getNode(rootNode, chatBoxRefId);
                 Bundle arguments = new Bundle();
                 if (convIndex == convs.length -1) {
                     arguments.putString(AccessibilityNodeInfoCompat.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "<3");
 
-                } else {
+                }
+                else {
                     arguments.putString(AccessibilityNodeInfoCompat.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, convs[convIndex % (convs.length - 1)]);
                     convIndex ++;
                 }
@@ -64,14 +66,14 @@ public class MyService extends AccessibilityService {
                 sendButton.performAction(AccessibilityNodeInfo.ACTION_CLICK);
                 Thread.sleep(2500);
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
 
-
     }
 
-    private AccessibilityNodeInfo getNode(AccessibilityNodeInfo rootNode, String refId) {
+    private AccessibilityNodeInfo getNode(AccessibilityNodeInfo rootNode, String refId){
         AccessibilityNodeInfo textBoxNode = null;
         List<AccessibilityNodeInfo> urlNodeInfo = rootNode.findAccessibilityNodeInfosByViewId(refId);
         if (urlNodeInfo != null && !urlNodeInfo.isEmpty()){
@@ -81,7 +83,7 @@ public class MyService extends AccessibilityService {
         return textBoxNode;
     }
 
-    private String getName(AccessibilityNodeInfo rootNode) {
+    private String getName(AccessibilityNodeInfo rootNode){
         List<AccessibilityNodeInfo> urlNodeInfo = rootNode.findAccessibilityNodeInfosByViewId(nameRefId);
 
         if (urlNodeInfo != null && !urlNodeInfo.isEmpty()){
@@ -97,7 +99,7 @@ public class MyService extends AccessibilityService {
     }
 
     @Override
-    public void onInterrupt() {
+    public void onInterrupt(){
 
     }
 
